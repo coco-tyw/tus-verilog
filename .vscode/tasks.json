@@ -1,0 +1,34 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "build",
+      "command": "iverilog",
+      "args": [
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}.out",
+        "-I",
+        "${fileDirname}/",
+        "${file}",
+      ]
+    }, {
+      "type": "shell",
+      "label": "run",
+      "command": "vvp",
+      "args": [
+        "${fileDirname}/${fileBasenameNoExtension}.out",
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "dependsOn": [
+        "build"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ],
+  "version": "2.0.0"
+}
