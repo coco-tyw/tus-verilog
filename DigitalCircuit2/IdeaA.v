@@ -19,10 +19,22 @@ module IdeaA(
     IdeaA_reg = IN;
   end
 
-  assign db[3] = (~IdeaA_reg[1] & IdeaA_reg[0]) | (IdeaA_reg[3] & IdeaA_reg[1]) | (IdeaA_reg[3] & IdeaA_reg[2]);
-  assign db[2] = (~IdeaA_reg[2] & ~IdeaA_reg[1] & ~IdeaA_reg[0]) | (IdeaA_reg[2] & IdeaA_reg[0]) | (IdeaA_reg[2] & IdeaA_reg[1]);
-  assign db[1] = (~IdeaA_reg[1] & ~IdeaA_reg[0]) | (IdeaA_reg[1] & IdeaA_reg[0]) | (~IdeaA_reg[3] & IdeaA_reg[0]);
-  assign db[0] = (~IdeaA_reg[1] & ~IdeaA_reg[0]) | (IdeaA_reg[1] & ~IdeaA_reg[0]);
+  /** 状態推移回路 **/
+  assign db[3] = (~IdeaA_reg[1] & IdeaA_reg[0]) | 
+                 (IdeaA_reg[3] & IdeaA_reg[1]) | 
+                 (IdeaA_reg[3] & IdeaA_reg[2]) ;
+                 
+  assign db[2] = (~IdeaA_reg[2] & ~IdeaA_reg[1] & ~IdeaA_reg[0]) |
+                 (IdeaA_reg[2] & IdeaA_reg[0]) |
+                 (IdeaA_reg[2] & IdeaA_reg[1]) ;
+
+  assign db[1] = (~IdeaA_reg[1] & ~IdeaA_reg[0]) |
+                 (IdeaA_reg[1] & IdeaA_reg[0]) | 
+                 (~IdeaA_reg[3] & IdeaA_reg[0]) ;
+
+  assign db[0] = (~IdeaA_reg[1] & ~IdeaA_reg[0]) |
+                 (IdeaA_reg[1] & ~IdeaA_reg[0]) ;
+  /** 状態推移回路 **/
 
   Switching switching(.CE(CE), .IN_1(IdeaA_reg), .IN_2(db), .OUT(d));
   D_FF d_ff(.RST(RST), .CLK(CLK), .IN(d), .OUT(q));

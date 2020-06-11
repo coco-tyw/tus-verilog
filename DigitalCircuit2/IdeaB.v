@@ -1,36 +1,36 @@
+`include "libs/D_FF.v"
+`include "libs/Switching.v"
+
 module IdeaB(
-  input RST,
-  input C1K,
-  input CE,
-  output [3:0] VAL
-);
-wire [3:0] DB;
-wire [3:0] D;
-reg [3:0] Q;
+    input RST,
+    input CLK,
+    input CE,
+    input [3:0]IN,
+    output [3:0] OUT,
+    output [3:0] OUT_LOGIC,
+    output [3:0] OUT_SWITCHING
+  );
+  wire [3:0] db;
+  wire [3:0] d;
+  wire [3:0] q;
+  reg [3:0] IdeaB_reg;
 
-
-// 論理回路
-assign DB[3] = ();
-assign DB[2] = ();
-assign DB[1] = ();
-assign DB[0] = ();
-
-// 切替回路
-assign D[3] = ();
-assign D[2] = ();
-assign D[1] = ();
-assign D[0] = ();
-
-// D-FF
-always @(posedge C1K or negedge RST) begin
-  if (RST == 0)
-    Q = 4'h0;
-  else 
-    Q =D;
+  initial begin
+    IdeaB_reg = IN;
   end
-end
 
-// 出力
-assign VAL = Q;
+  /** 状態推移回路 **/
+  assign db = IdeaB_reg == 4'b0101 ? 4'b1110 : IdeaB_reg - 1;
+  /** 状態推移回路 **/
 
+  Switching switching(.CE(CE), .IN_1(IdeaB_reg), .IN_2(db), .OUT(d));
+  D_FF d_ff(.RST(RST), .CLK(CLK), .IN(d), .OUT(q));
+
+  always @(q) begin
+    IdeaB_reg = q;
+  end
+
+  assign OUT_LOGIC = db;
+  assign OUT_SWITCHING = d;
+  assign OUT = q;
 endmodule // IdeaB
