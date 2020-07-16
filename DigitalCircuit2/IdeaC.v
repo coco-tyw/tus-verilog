@@ -3,12 +3,12 @@
 
 module IdeaC(
     input RST,
-    input CLK,
+    input C1K,
     input CE,
     input [3:0]IN,
-    output [3:0] OUT,
-    output [3:0] OUT_LOGIC,
-    output [3:0] OUT_SWITCHING
+    output [3:0] VAL,
+    output [3:0] LOG_LOGIC,
+    output [3:0] LOG_SWITCHING
   );
   wire [3:0] db;
   wire [3:0] d;
@@ -31,8 +31,8 @@ module IdeaC(
     IdeaC_reg = q;
   end
 
-  assign OUT_LOGIC = db;
-  assign OUT_SWITCHING = d;
-  assign OUT = q;
+  assign LOG_LOGIC = db;
+  assign LOG_SWITCHING = d;
+  assign VAL = q;
 endmodule // IdeaC
 

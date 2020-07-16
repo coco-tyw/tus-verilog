@@ -7,8 +7,8 @@ module Runner();
   wire [3:0] result_logic;
   wire [3:0] result_switching;
 
-  IdeaA idea(.CLK(CLK), .RST(RST), .CE(CE), .IN(4'b0101),
-              .OUT(result), .OUT_LOGIC(result_logic), .OUT_SWITCHING(result_switching));
+  IdeaA idea(.C1K(CLK), .RST(RST), .CE(CE),
+             .VAL(result), .LOG_LOGIC(result_logic), .LOG_SWITCHING(result_switching));
 
   initial begin
     CLK = 0;

@@ -3,21 +3,16 @@
 
 module IdeaA(
     input RST,
-    input CLK,
+    input C1K,
     input CE,
-    input [3:0]IN,
-    output [3:0] OUT,
-    output [3:0] OUT_LOGIC,
-    output [3:0] OUT_SWITCHING
+    output [3:0] VAL,
+    output [3:0] LOG_LOGIC,
+    output [3:0] LOG_SWITCHING
   );
   wire [3:0] db;
   wire [3:0] d;
   wire [3:0] q;
   reg [3:0] IdeaA_reg;
-
-  initial begin
-    IdeaA_reg = IN;
-  end
 
   /** 状態推移回路 **/
   assign db[3] = (~IdeaA_reg[1] & IdeaA_reg[0]) | 
@@ -37,13 +32,13 @@ module IdeaA(
   /** 状態推移回路 **/
 
   Switching switching(.CE(CE), .IN_1(IdeaA_reg), .IN_2(db), .OUT(d));
-  D_FF d_ff(.RST(RST), .CLK(CLK), .IN(d), .OUT(q));
+  D_FF d_ff(.RST(RST), .CLK(C1K), .IN(d), .OUT(q));
 
   always @(q) begin
     IdeaA_reg = q;
   end
 
-  assign OUT_LOGIC = db;
-  assign OUT_SWITCHING = d;
-  assign OUT = q;
+  assign LOG_LOGIC = db;
+  assign LOG_SWITCHING = d;
+  assign VAL = q;
 endmodule // IdeaA

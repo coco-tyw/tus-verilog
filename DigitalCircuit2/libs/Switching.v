@@ -1,7 +1,7 @@
 module Switching(
     input CE,
     input [3:0] IN_1, // CE = 0
-    input [3:0] IN_2, // C E= 1
+    input [3:0] IN_2, // CE = 1
     output [3:0] OUT
   );
   wire [3:0] Swiching_wire;
