@@ -1,0 +1,22 @@
+$date
+	Thu Jul 16 19:03:43 2020
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module GenComp4D $end
+$var reg 1 ! CLK $end
+$upscope $end
+$scope module GenComp4D $end
+$var wire 1 " EQU $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0"
+0!
+$end
+#1000000
